@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -42,7 +43,9 @@ def test_chess_engine(body: MoveSuggestionBody):
     Suggests a move given a chess game. The game state is expected to
     be a FEN string.
     """
-    stockfish = Stockfish()
+    STOCKFISH_PATH = os.getenv('STOCKFISH_PATH') or 'stockfish'
+
+    stockfish = Stockfish(path=STOCKFISH_PATH)
     stockfish.set_fen_position(body.board_position)
     stockfish.set_elo_rating(1350)
     best_move = stockfish.get_best_move_time(1000)
