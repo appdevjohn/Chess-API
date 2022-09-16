@@ -11,7 +11,7 @@ This API does one thing only: it takes a chess game and returns the best next mo
 1. Ensure Stockfish is installed on your machine.
 2. Ensure the environment variables are set up as needed.
 3. Install python dependencies by running `pip install -r requirements.txt`
-4. Run `uvicorn app:app --reload` to run the project.
+4. Run `uvicorn main:app --reload` to run the project.
 
 ### Running with Docker
 1. Run `docker build -t chess-api .`
