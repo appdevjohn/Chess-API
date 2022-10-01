@@ -16,3 +16,6 @@ This API does one thing only: it takes a chess game and returns the best next mo
 ### Running with Docker
 1. Run `docker build -t chess-api .`
 2. Run `docker run -p 8000:8000 chess-api` ensuring the port is exposed.
+
+### Documentation
+With this application running, go to `/docs` in your browser to see how to use this API.
