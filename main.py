@@ -26,7 +26,7 @@ app.add_middleware(
 
 
 class MoveSuggestionBody(BaseModel):
-    board_position: str
+    fen: str
 
 
 @app.get('/', tags=['Default'])
@@ -46,7 +46,7 @@ def test_chess_engine(body: MoveSuggestionBody):
     STOCKFISH_PATH = os.getenv('STOCKFISH_PATH') or 'stockfish'
 
     stockfish = Stockfish(path=STOCKFISH_PATH)
-    stockfish.set_fen_position(body.board_position)
+    stockfish.set_fen_position(body.fen)
     stockfish.set_elo_rating(1350)
     best_move = stockfish.get_best_move_time(1000)
 
