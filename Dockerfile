@@ -12,7 +12,12 @@ RUN pip install -r requirements.txt
 COPY . .
 
 ENV STOCKFISH_PATH='/usr/games/stockfish'
+ENV PORT=8000
+ENV HOST=0.0.0.0
 
-EXPOSE 8000
+ENV UVICORN_PORT=$PORT
+ENV UVICORN_HOST=$HOST
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0"]
+EXPOSE $PORT
+
+CMD ["uvicorn", "main:app"]
