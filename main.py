@@ -27,6 +27,7 @@ app.add_middleware(
 
 class MoveSuggestionBody(BaseModel):
     fen: str
+    skill_level: int = 10
 
 
 @app.get('/', tags=['Default'])
@@ -40,14 +41,14 @@ def index():
 @app.post('/suggest-move', tags=['Chess Engine'])
 def test_chess_engine(body: MoveSuggestionBody):
     """
-    Suggests a move given a chess game. The game state is expected to
-    be a FEN string.
+    Suggests a move given a chess game and skill level. The game state is expected to
+    be a FEN string, and the skill level is an integer between 0 and 20 inclusive.
     """
     STOCKFISH_PATH = os.getenv('STOCKFISH_PATH') or 'stockfish'
 
     stockfish = Stockfish(path=STOCKFISH_PATH)
     stockfish.set_fen_position(body.fen)
-    stockfish.set_elo_rating(1350)
-    best_move = stockfish.get_best_move_time(1000)
+    stockfish.set_skill_level(body.skill_level)
+    best_move = stockfish.get_best_move()
 
     return {'best_move': best_move}
